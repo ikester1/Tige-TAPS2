@@ -1,0 +1,9 @@
+(sym_lib_table
+  (lib (name "Converter_DCDC_Adafruit_MPM3610")(type "KiCad")(uri "${MY_SYMBOL_DIR}/Converter_DCDC_Adafruit_MPM3610.kicad_sym")(options "")(descr ""))
+  (lib (name "MCU_RaspberryPi_and_Boards")(type "KiCad")(uri "${MY_SYMBOL_DIR}/MCU_RaspberryPi_and_Boards.kicad_sym")(options "")(descr ""))
+  (lib (name "Connector_TE_280384-2")(type "KiCad")(uri "${MY_SYMBOL_DIR}/Connector_TE_280384-2.kicad_sym")(options "")(descr ""))
+  (lib (name "LTC4425EMSE-PBF")(type "KiCad")(uri "${MY_SYMBOL_DIR}/LTC4425EMSE-PBF.kicad_sym")(options "")(descr ""))
+  (lib (name "VoltageMonitor_ABLIC")(type "KiCad")(uri "${MY_SYMBOL_DIR}/VoltageMonitor_ABLIC.kicad_sym")(options "")(descr ""))
+  (lib (name "LoadSwitch_Micrel")(type "KiCad")(uri "${MY_SYMBOL_DIR}/LoadSwitch_Micrel.kicad_sym")(options "")(descr ""))
+  (lib (name "LM2941")(type "KiCad")(uri "${MY_SYMBOL_DIR}/LM2941T&slash_LF03.kicad_sym")(options "")(descr ""))
+)
