@@ -55,12 +55,16 @@ In addition to the usual soldering supplies, a special crimper
 ( [Amazon](https://www.amazon.com/dp/B088NQV8Z3) )
 is needed for the board's JST connectors
 
+## H-Bridge
+
 The commercial H-Bridge is a BTS7960 43A High Power Motor Driver Module and can be purchased on Amazon for less than $10 from
 [several souces](https://www.amazon.com/s/?url=search-alias%3Daps&field-keywords=BTS7960+43A+Motor+Driver+Module).
 The H-Bridge board has an 8 pin header for its logic connections to the processor board; replace this header with the same locking connector
 as the processor board to improve robustness.
 
-The code is compiled with the [Raspberry Pi Pico C/C++ SDK](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf).
+## Code
+
+The C++ code is compiled with the [Raspberry Pi Pico C/C++ SDK](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf).
 Go to the [src](/src) directory, type `cmake -B` followed by `cd build && make` to generate the executable.
 
 ## Enclosure and Switches
