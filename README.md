@@ -41,12 +41,11 @@ glue circuitry.
 
 The [pcb](pcb) directory holds the [KiCad 6](https://www.kicad.org/) files detailing the schematic and
 printed circuit layout, and
-[pcb/oshPark](pcb/oshPark)
-contains a
+[bin/TAPS.zip](bin)
+is a
 [Gerber](https://en.wikipedia.org/wiki/Gerber_format)
-zip file to send to a printed circuit board
-fabricator.  [OSHPARK](https://oshpark.com/), for example, has successfully fabricated high quality boards from
-the zip file.
+file to send to a printed circuit board
+fabricator such as [OSHPARK](https://oshpark.com/).
 
 Almost all components are available at [Digi-Key](https://www.digikey.com/) and the schematic is annotated with
 manufacturer and product numbers for each component.
@@ -65,14 +64,16 @@ as the processor board to improve robustness.
 ## Code
 
 The C++ code is compiled with the [Raspberry Pi Pico C/C++ SDK](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf).
-Go to the [src](/src) directory, type `cmake -B` followed by `cd build && make` to generate the executable.
+Go to the [src](src) directory, type `cmake -B build` followed by `cd build && make` to generate the executable to
+copy to the Pico processor as described in the SDK. The most recent executable is [bin/taps.elf](bin).
 
 ## Enclosure and Switches
 
-The [box](/box) directory holds the [SketchUp](https://www.sketchup.com/) enclosure design files.
-[Cura](https://ultimaker.com/software/ultimaker-cura) successfully slices *boxBottom.stl* and *boxTop.stl* for
-an [Ultimaker](https://ultimaker.com/) printer.
-The two part enclosure's bottom secures the boards and external wires with 2-56 screws, while the top holds the setup button and
+The [box](box) directory holds the [SketchUp](https://www.sketchup.com/) enclosure design files.
+[Cura](https://ultimaker.com/software/ultimaker-cura) successfully slices
+[bin/boxBottom.stl](bin) and [bin/boxTop.stl](bin)
+for an [Ultimaker 3D printer](https://ultimaker.com/) though other slicers and printers should work.
+The ABS enclosure's bottom secures the boards and external wires with 2-56 screws, while the top holds the setup button and
 auxiliary trim switch.
 The auxiliary trim switch is a duplicate of the button used on the throttle of the Tige 22v wakeboard boat.
 It is manufactured by
