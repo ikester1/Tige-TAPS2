@@ -6,7 +6,7 @@ trim indicator gauge is probably made by [Faria](https://fariabeede.com), and th
 "black box" controller is under the dashboard.  The "black box" takes the trim switch input and drives the actuator
 and gauge.  Coupled with a plate on the transom, Tige called the entire system **TAPS2**.
 
-<p align="center"><img src="art/original.png" alt="Original Tige TAPS parts"></p>
+<p align="center"><img src="art/original.png"></p>
 
 The original controller is prone to failure, and is no longer available from Lenco or Tige.  There are
 other solutions from Lenco but there are none which retain the use of the original trim switch and Tige
@@ -24,10 +24,10 @@ gauge power/ground/signal, and two actuator motor power leads.  The controller b
 setup pushbutton and redundant trim switch.
 The box, while deeper than the original controller, has the same footprint.
 
-<p align="center"><img src="art/newBox.png" alt="New TAPS black box"></p>
+<p align="center"><img src="art/newBox.png"></p>
 
 This project includes the controller's schematic diagram and PCB layout, a 3D printable enclosure, and the C++
-software to run the show.  With access to a 3D printer, the cost of the controller should be approximately $50.
+controller software.  With access to a 3D printer, the cost of the controller should be approximately $50.
 
 # Making the Controller
 
@@ -36,6 +36,8 @@ The replacement controller is a custom processor board connected to a commercial
 to switch the relatively high current actuator connections.
 The processor board holds a [Raspberry Pi Pico](https://www.google.com/search?q=raspberry+pico) and surrounding
 glue circuitry.
+
+<p align="center"><img src="art/inside.png"></p>
 
 ## Processor Board
 
@@ -52,7 +54,8 @@ manufacturer and product numbers for each component.
 The Pico power supply is from [adafruit](https://www.adafruit.com/product/4683).
 In addition to the usual soldering supplies, a special crimper
 ( [Amazon](https://www.amazon.com/dp/B088NQV8Z3) )
-is needed for the board's JST connectors
+is needed for the board's connectors though
+one could skip the connectors and solder the wires to the boards.
 
 ## H-Bridge
 
@@ -63,7 +66,7 @@ as the processor board to improve robustness.
 
 ## Code
 
-The C++ code is compiled with the [Raspberry Pi Pico C/C++ SDK](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf).
+The C++ code is compiled on Linux with the [Raspberry Pi Pico C/C++ SDK](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf).
 Go to the [src](src) directory, type `cmake -B build` followed by `cd build && make` to generate the executable to
 copy to the Pico processor as described in the SDK. The most recent executable is [bin/taps.elf](bin).
 
@@ -75,7 +78,7 @@ The [box](box) directory holds the [SketchUp](https://www.sketchup.com/) enclosu
 for an [Ultimaker 3D printer](https://ultimaker.com/) though other slicers and printers should work.
 The ABS enclosure's bottom secures the boards and external wires with 2-56 screws, while the top holds the setup button and
 auxiliary trim switch.
-The auxiliary trim switch is a duplicate of the button used on the throttle of the Tige 22v wakeboard boat.
+The auxiliary trim switch is a duplicate of the button used on the throttle of the Tige boat.
 It is manufactured by
 [E-Switch](https://www.e-switch.com/),
 part number
@@ -86,7 +89,7 @@ as part number [EG5445-ND](https://www.digikey.com/short/t0br9zjr).
 The 16mm illumated setup pushbutton is available from [adafruit](https://www.adafruit.com/product/1477)
 and [amazon](https://www.amazon.com/dp/B0148183D2).
 
-The top and bottom are held together with two 6.3mm automotive plastic trim fasteners.
+The box top and bottom are held together with two 6.3mm automotive plastic trim fasteners.
 
 ## Connections
 
@@ -97,7 +100,7 @@ and *SIG* goes on the left.  **Connecting any power lead to the gauge's *SIG* te
 The spade terminal near the blue cap is for gauge illumination and this connection should go to the lighting circuit
 shared with the other instruments.
 
-<p align="center"><img src="art/GaugeRear.png" alt="TAPS gauge rear view"></p>
+<p align="center"><img src="art/GaugeRear.png"></p>
 
 Connect the black box's two actuator leads to the two leads coming from the Lenco electric actuator.  Polarity
 is only important when it comes time to ensure the actuator retracts when the black box thinks it should be
@@ -115,7 +118,7 @@ to the same 15A breaker that was powering the original black box (actually, a 10
 
 The black box has a *setup mode* entered by pressing its pushbutton.  The button's LED pulses
 when the box is in *setup mode* and goes dark when *setup mode* is exited.  *Setup mode* is automatically exited after one
-minute of inactivity, or if the pushbutton is pressed and held for two seconds or more.
+minute of inactivity, or if the pushbutton is pressed and held for at least two seconds.
 
 As soon as *setup mode* is entered, the actuator should fully retract.
 If the actuator extends instead of retracts, simply reverse the actuator leads and try again.
@@ -131,7 +134,7 @@ The primary purpose of *setup mode* is to calibrate the TAPS gauge.  This is don
 setup button and set the needle's **6** position.  Press the button and set the **4** position; continue for the **2** and **0** positions.
 *Setup mode* automatically exits once the button is pressed after adjusting for the **0** position.
 
-<p align="center"><img src="art/GaugeFront.png" alt="TAPS gauge front view"></p>
+<p align="center"><img src="art/GaugeFront.png"></p>
 
 # Operation
 
@@ -140,6 +143,6 @@ The trim switch and TAPS system should operate exactly as the original system, e
 The original box retracts the actuator and resets the gauge at every boat restart.
 
 - The original black box runs the actuator as long as the trim switch is pressed; this replacement box stops the actuator
-once it is 25% beyond the retract or extend limits.
+once it is 50% beyond the retract or extend limits.
 In any case, running the actuator beyond its limits causes no harm to the actuator.
 

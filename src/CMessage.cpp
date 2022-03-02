@@ -86,7 +86,13 @@ void CMessage::push() {
 			queueHead = queueTail = this;
 		}
 		this->m_next = nullptr;
+		return;
 	}
+
+	//
+	// Can't queue the message.... don't lose it!
+	//
+	free();
 }
 
 CMessage *CMessage::pop() {

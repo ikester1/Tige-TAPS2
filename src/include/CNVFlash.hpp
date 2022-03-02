@@ -10,5 +10,6 @@ class CNVFlash : public CNVState {
 public:
     CNVFlash();
     bool commit() override;
+    void zap() override;
 };
 

@@ -18,7 +18,6 @@
 //
 // We CRC the data to make sure corruption is detected (but it is not corrected)
 //
-
 template < class t, uint32_t top >
 class configBase {
     struct tWithCRC {
@@ -52,6 +51,7 @@ public:
     void        save( t const * );
     inline bool valid() const           { return m_valid == true; }
     const char * name() const           { return m_name; }
+    void        zap();
 };
 
 template< class t, uint32_t top >
@@ -105,11 +105,21 @@ void configBase<t,top>::save( t const * const tp ) {
     {
         CINTERRUPTS_OFF intsOff;
         if( !foundSlot )
-            flash_range_erase( offsetInFlash, sizeof(newImage) );
+            zap();
         flash_range_program( offsetInFlash, newImage, sizeof(newImage) );
     }
 
     printf("NEW %s AT SLOT %u at %p: ", name(), m_flashPtr - baseAddress(), m_flashPtr ); m_flashPtr->m_data.print(); printf("\n\n");
+}
+
+//
+// Erase the entire configuration area
+//
+template< class t, uint32_t top >
+void configBase<t,top>::zap() {
+    CINTERRUPTS_OFF intsOff;
+    flash_range_erase( offsetInFlash, sectorsInFlash * FLASH_SECTOR_SIZE );
+    m_flashPtr = baseAddress();
 }
 
 
@@ -194,4 +204,12 @@ bool CNVFlash::commit() {
         super::gaugeCal().clearChanged();
     }
     return true;
+}
+
+//
+// Erase the flash regions
+//
+void CNVFlash::zap() {
+    constData()->m_base.zap();
+    changingData()->m_base.zap();
 }

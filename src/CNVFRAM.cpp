@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <cstring>
 #include "pico/stdlib.h"
 
 #include "config.h"
@@ -82,6 +83,25 @@ bool CNVFRAM::commit() {
 }
 
 //
+// Clear out all the FRAM
+//
+void CNVFRAM::zap() {
+    auto bytes = size();
+    uint addr = 0;
+
+    uint8_t buf[100];
+    memset( buf, 0, sizeof(buf) );
+
+    while( bytes ) {
+        auto n = MIN( bytes, sizeof(buf) );
+        if( this->set( addr, buf, n ) == false )
+            break;
+        addr += n;
+        bytes -= n;
+    }
+}
+
+//
 // Fetch 'numberOfBytes' into 'buf' from FRAM address 'eepromAddress'
 //
 bool CNVFRAM::get( const uint eepromAddress, void * const buf, const uint numberOfBytes ) const {
@@ -99,7 +119,7 @@ bool CNVFRAM::set( const uint eepromAddress, const void * const buf, const uint 
 
 bool CNVFRAM::doCommand( int cmd ) {
     
-    if( cmd == 's' ) {
+    if( cmd == 'i' ) {
         m_i2c.scan();
         return true;
     }

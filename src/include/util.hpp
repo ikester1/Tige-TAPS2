@@ -21,6 +21,24 @@ inline int getcharTimeout( bool& success, uint32_t timeout_us = 60*1000000 ) {
 }
 
 //
+// Make sure user is sure, return true if so
+//
+inline bool areYouSure( const char * const prompt = nullptr... ) {
+    if( prompt != nullptr ) {
+        va_list args;
+        va_start( args, prompt );
+        vprintf( prompt, args );
+        va_end(args);
+        putchar(' ');
+    }
+    printf( "really (y/n)? " );
+    bool success;
+    auto ch = getcharTimeout( success );
+    putchar('\n');
+    return success && (ch == 'y' || ch == 'Y' );
+}
+
+//
 // Get a decimal value from stdin, set 'success' accordingly
 //
 inline int getDecimal( bool& success, const char * const prompt = nullptr... ) {
@@ -317,7 +335,7 @@ public:
         }
     }
 
-    float setPercent( const float percent ) {
+    CPWM& setPercent( const float percent ) {
         m_percent = MIN( percent, 100 );
         m_percent = MAX( m_percent, 0 );
 
@@ -332,14 +350,12 @@ public:
             pwm_set_chan_level( m_slice, m_channel, m_level );
             enable();
         }
-        return percent;
+        return *this;
     }
     float getPercent() const            { return m_percent; }
 
     virtual void enable()               { if( m_gpio.available() ) { m_gpio.setOn(); pwm_set_enabled( m_slice, true ); } }
     virtual void disable()              { if( m_gpio.available() ) { m_gpio.setOff(); pwm_set_enabled( m_slice, false ); } }
-
-    float operator=( float percent )        { return setPercent( percent ); }
 
     void print() const {
         printf( "PWM pin %d: slice %u, divider %u.%u, top %u, percent %.2f%%, level %u\n",

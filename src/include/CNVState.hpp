@@ -89,7 +89,12 @@ public:
     //
     // Initialize with reasonable defaults
     //
-    CNVState&       setDefaults() ;
+    CNVState&       setDefaults();
+
+    //
+    // Zap (clear out) the nvstate
+    //
+    virtual void    zap() = 0;
 
     //
     // Save our members to nonvolatile storage

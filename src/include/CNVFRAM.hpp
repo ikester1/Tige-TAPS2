@@ -17,6 +17,7 @@ class CNVFRAM : public CNVState {
 public:
     CNVFRAM( uint8_t sevenBitAddr, BoardPin::type_t sdaPin );
     bool commit() override;
+    void zap() override;
     bool unlimitedUpdates() const override  { return true; }
 
     uint size() const;

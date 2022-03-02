@@ -135,6 +135,7 @@ int main()
             actuator.setAlreadyAtPercent( recoveredActuatorPercent );
             spdt.enable();
             configButton.enableMessages();
+            gauge.setSlow( 100 );
         }
     }
 
@@ -214,7 +215,7 @@ int main()
 
         case CMessage::Type::GAUGE_UPDATE:
             { const auto percentUnbounded = actuator.percentUnbounded();
-                if( percentUnbounded < -25 || percentUnbounded > 125 ) {
+                if( percentUnbounded < -50 || percentUnbounded > 150 ) {
                     statusLED = false;
                     actuator.stop();
                 }
@@ -431,7 +432,14 @@ void demoMode( CGauge& gauge, CButton& stopButton ) {
 void doCommand( int cmd, CNVState& nvState ) {
     if( cmd != '\r' ) {
         switch( cmd = tolower(cmd) ) {
-        case 'n':               // show the non-volatile storage state
+        case 'z':               // zap the NV state
+            if( areYouSure( "\nErase all remembered settings...") ) {
+                nvState.zap();
+                printf( "\nzapped!\n");
+            }
+            break;
+
+        case 'p':               // print the non-volatile storage state
             nvState.print();
             break;
 
