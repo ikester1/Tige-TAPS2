@@ -27,7 +27,7 @@ The box, while deeper than the original controller, has the same footprint.
 <p align="center"><img src="art/newBox.png"></p>
 
 This project includes the controller's schematic diagram and PCB layout, a 3D printable enclosure, and the C++
-controller software.  With access to a 3D printer, the cost of the controller should be approximately $50.
+controller software.  With access to a 3D printer, the cost of the controller should be less than $75.
 
 # Making the Controller
 
@@ -111,8 +111,9 @@ Connect the three trim switch wires to the boat's trim switch ... on my boat thi
 There is no appreciable current flowing through the trim switch so any secure means of connection (any kind of connector)
 should be fine.  Do not otherwise connect the boat's power or ground to these connections.
 
-Finally, connect the black box's power and ground to the electrical system.  The power lead should be connected, most likely,
+Finally, connect the black box's power and ground to the electrical system.  The heavy power lead should be connected, most likely,
 to the same 15A breaker that was powering the original black box (actually, a 10A breaker is probably adequate).
+The other, lighter, power lead should be connected to a switched power source.
 
 # Setup
 
@@ -130,9 +131,16 @@ Similarly, pressing the top of the rocker switch on the throttle should extend t
 switch should retract it.  Something is wrong with the
 throttle's switch or wiring if the box's rocker switch works but the throttle's does not.
 
-The primary purpose of *setup mode* is to calibrate the TAPS gauge.  This is done by manually setting the gauge's fully retracted (wakeboard) and 25% - 50% - 75% - 100% extended (slalom) gauge needle positions.  More specifically, the gauge's 8, 6, 4, 2, and 0 readings are adjusted.  Enter *setup mode* to adjust these positions and use the trim switch to set the needle's **8** position.  Press the
-setup button and set the needle's **6** position.  Press the button and set the **4** position; continue for the **2** and **0** positions.
-*Setup mode* automatically exits once the button is pressed after adjusting for the **0** position.
+The primary purpose of *setup mode* is to calibrate the TAPS gauge.
+This is done by manually setting the gauge's fully retracted (wakeboard) and 25% - 50% - 75% - 100% 
+extended (slalom) gauge needle positions.
+More specifically, the gauge's 8, 6, 4, 2, and 0 readings are adjusted.
+Enter *setup mode* to adjust these positions and use the trim switch to set the needle's **8** position.
+Press the setup button and set the needle's **6** position.
+Press the button and set the **4** position; continue for the **2** and **0** positions.
+One should be careful when setting the **0** position: release the trim switch as soon as the
+**0** position is reached (do not linger) as doing otherwise will bias the box's idea of when **0** was reached.
+*Setup mode* automatically exits once the setup button is pressed after adjusting for the **0** position.
 
 <p align="center"><img src="art/GaugeFront.png"></p>
 
@@ -144,5 +152,5 @@ The original box retracts the actuator and resets the gauge at every boat restar
 
 - The original black box runs the actuator as long as the trim switch is pressed; this replacement box stops the actuator
 once it is 50% beyond the retract or extend limits.
-In any case, running the actuator beyond its limits causes no harm to the actuator.
+In any case, running the Lenco actuator beyond its limits causes no harm to the actuator.
 
